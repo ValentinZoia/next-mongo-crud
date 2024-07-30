@@ -1,7 +1,10 @@
+
+import { taskService } from "@/service/taskService";
 import Link from "next/link";
 
 interface TaskCardProps {
-  id: string;
+  
+  id:  string ;
   title: string;
   time?: string;
   description: string;
@@ -9,6 +12,7 @@ interface TaskCardProps {
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
+  
   id,
   title,
   time,
@@ -17,13 +21,21 @@ const TaskCard: React.FC<TaskCardProps> = ({
 }) => {
 
 
-  const deleteTask = (id: string) => {}
+  const deleteTask = async (id: string) => {
+    try {
+      const response = await taskService.deleteTask(id);
+      alert(response)
+      onDelete(id)
+    } catch (error) {
+      alert(error)
+    }
+  }
 
 
 
 
   return (
-    <div className="bg-gray-200 p-4 flex flex-col justify-between">
+    <div  className="bg-gray-200 p-4 flex flex-col justify-between">
       <section className="text-red mb-4">
         <div className="flex justify-between items-center">
           <h3 className="text-2xl">{title}</h3>
@@ -53,3 +65,5 @@ const TaskCard: React.FC<TaskCardProps> = ({
     </div>
   );
 };
+
+export default TaskCard

@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 export interface ITask {
-  _id: ObjectId | string | undefined;
+  _id?: ObjectId | string | undefined;
   title: string;
   time?: string;
   description: string;
@@ -11,7 +11,7 @@ export interface ITask {
 }
 
 export interface ITaskDocument extends ITask, Document {
-  _id: ObjectId | string | undefined;
+  _id?: ObjectId | string | undefined;
   title: string;
   time?: string;
   description: string;

@@ -1,39 +1,46 @@
 import { connectDB } from "@/libs/mongodb";
 import Task from "@/models/Tasks";
-
-import { useRouter } from "next/router";
 import { NextRequest, NextResponse } from "next/server";
 
 // getTaskById
-export async function GET(request: NextRequest) {
+export async function GET( request: NextRequest, { params }: any ) {
   try {
     await connectDB();
-    const body = await request.json();
-    const { id } = body;
+    const id = params.id;
 
     if (!id) {
       return NextResponse.json(
-        { error: id },
+        { error: "id invalido" },
         { status: 400 }
       );
     }
 
     const task = await Task.findById(id);
-    return NextResponse.json({ task }, { status: 200 });
-  } catch (error) {
+
+    if (!task) {
+      return NextResponse.json({ error: "nashe" }, { status: 400 });
+    }
+
+    return NextResponse.json({message:`obteniendo tarea con id: ${id}`, task }, { status: 200 });
+  
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "No se encontro la tarea" },
+      { error: error.message },
       { status: 500 }
     );
   }
 }
 
-export async function PUT(request: NextRequest) {
+export async function PUT(request: NextRequest, { params }: any) {
   try {
     await connectDB();
 
     const body = await request.json();
-    const { id, title, time, description } = body;
+
+    const { title, time, description } = body;
+
+    const id = params.id;
+
     
 
     if (!title || !description) {
@@ -58,25 +65,24 @@ export async function PUT(request: NextRequest) {
     
     return NextResponse.json(
       {
-        message: "Tarea actualizada correctamente",
+        message: `fue actualizada la tarea con id: ${id}`,
         task,
       },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "No se pudo actualizar la tarea" },
+      { error: error.message },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE(request: NextRequest,  { params }: any ) {
   try {
     await connectDB();
 
-    const body = await request.json();
-    const { id } = body;
+    const id = params.id;
 
     if (!id) {
       return NextResponse.json(
@@ -86,10 +92,12 @@ export async function DELETE(request: NextRequest) {
     }
 
     const task = await Task.findByIdAndDelete(id);
-    return NextResponse.json({ task }, { status: 200 });
-  } catch (error) {
+
+    return NextResponse.json({ message: `La tarea con id ${id} fue eliminada correctamente}`, task }, { status: 200 });
+  
+  } catch (error: any) {
     return NextResponse.json(
-      { error: "No se pudo eliminar la tarea" },
+      { error: error.message },
       { status: 500 }
     );
   }
