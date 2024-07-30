@@ -1,10 +1,11 @@
 "use client";
 
-
 import { ITaskDocument } from "@/models/Tasks";
 import { taskService } from "@/service/taskService";
 import TaskCard from "@/components/TaskCard/TaskCard";
 import { useEffect, useState } from "react";
+import { sortTasks } from "@/utils/sortTasks";
+import showDate from "@/utils/showDate";
 
 export default function TasksListPage(): JSX.Element {
   const [tasks, setTasks] = useState<ITaskDocument[]>([]);
@@ -16,8 +17,8 @@ export default function TasksListPage(): JSX.Element {
       const response = await taskService.getAllTasks();
       setTasks(response);
       setIsLoading(false);
-    } catch (error) {
-      setError("Ocurrio un error al obtener las tareas");
+    } catch (error: any) {
+      setError(error.message);
       setIsLoading(false);
     }
   };
@@ -29,8 +30,10 @@ export default function TasksListPage(): JSX.Element {
   const handleDeleteTask = (deletedTaskId: string) => {
     const filteredTasks = tasks.filter((task) => task._id !== deletedTaskId);
     setTasks(filteredTasks);
-    console.log(tasks)
   };
+
+  //funcion para ordenar las tareas segun el tiempo de menor a mayor
+  const sortedTasks = sortTasks(tasks);
 
   if (isLoading)
     return <div className="text-center mt-8">Cargando tareas...</div>;
@@ -39,16 +42,15 @@ export default function TasksListPage(): JSX.Element {
 
   return (
     <>
-      
-
       <main className="mx-auto px-4 py-8">
+        <h1 className="text-3xl">{showDate()}</h1>
         {tasks.length === 0 ? (
           <p className="text-gray-600 mt-4">No hay tareas</p>
         ) : (
           <div className="grid frid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            {tasks.map((task) => (
+            {sortedTasks.map((task) => (
               <TaskCard
-                key={task._id as string} 
+                key={task._id as string}
                 id={task._id as string}
                 title={task.title}
                 time={task.time}

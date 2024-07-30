@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
         
 
     } catch (error) {
-        return NextResponse.json({error: 'No se pudo obtener las tareas'},{status: 500})
+        return NextResponse.json({error: 'An error has occurred while getting the tasks'},{status: 500})
     }
 }
 
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
         const {title, time, description} = body;
 
         if(!title || !description){
-            return NextResponse.json({error: 'Completa los campos de title y description'},{status:400})
+            return NextResponse.json({error: 'Please complete title and description'},{status:400})
         }
 
         const newTask: ITaskDocument = new Task({
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
         const response = NextResponse.json({
             task : newTask,
-            message: 'Tarea creada correctamente'
+            message: 'Task created successfully'
         },{
             status:200,
         });
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
 
     } catch (error) {
         return NextResponse.json(
-            { error: 'No se pudo crear la tarea' },
+            { error: 'An error has occurred while creating the task' },
             { status: 500 }
           );
     }

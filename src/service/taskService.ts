@@ -10,7 +10,7 @@ export const taskService = {
             const response = await axios.get(API_URL);
             return response.data.tasks;
         } catch (error) {
-            throw new Error("Ocurrio un error al obtener todas las tareas")
+            throw new Error("An error occurred while fetching tasks")
         }
     },
 
@@ -22,7 +22,7 @@ export const taskService = {
             if(error.response && error.response.status === 400){
                throw new Error(error.response.data.message) 
             }
-            throw new Error('Ocurrio un error al obtener la tarea') 
+            throw new Error('An error occurred while fetching task') 
             
         
          }
@@ -36,7 +36,7 @@ export const taskService = {
             if(error.response && error.response.status === 400){
                throw new Error(error.response.data.message) 
             }
-            throw new Error('Ocurrio un error al crear la tarea') 
+            throw new Error('An error occurred while creating task') 
             
         
          }
@@ -50,7 +50,7 @@ export const taskService = {
             if(error.response && error.response.status === 400){
                throw new Error(error.response.data.message) 
             }
-            throw new Error('Ocurrio un error al actualizar la tarea') 
+            throw new Error('An error occurred while updating task') 
             
         
          }
@@ -64,7 +64,7 @@ export const taskService = {
             if(error.response && error.response.status === 400){
                throw new Error(error.response.data.message) 
             }
-            throw new Error('Ocurrio un error al eliminar la tarea') 
+            throw new Error('An error occurred while deleting task') 
             
         
          }

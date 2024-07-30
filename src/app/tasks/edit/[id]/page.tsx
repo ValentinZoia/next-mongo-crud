@@ -39,12 +39,12 @@ export default function TaskEditPage() {
       router.push("/tasks/list");
     } catch (error: any) {
       alert(error.message);
-      setError("Error al actualizar la tarea");
+      setError(error.message);
       setIsLoading(false);
     }
   };
   if (isLoading)
-    return <div className="text-center mt-8">Cargando tarea...</div>;
+    return <div className="text-center mt-8">Cargando...</div>;
   if (error)
     return <div className="text-center mt-8 text-red-500">{error}</div>;
   if (!task) return <div className="text-center mt-8">Tarea no encontrada</div>;

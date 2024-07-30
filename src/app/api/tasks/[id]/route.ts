@@ -10,7 +10,7 @@ export async function GET( request: NextRequest, { params }: any ) {
 
     if (!id) {
       return NextResponse.json(
-        { error: "id invalido" },
+        { error: "Invalid Id" },
         { status: 400 }
       );
     }
@@ -18,10 +18,10 @@ export async function GET( request: NextRequest, { params }: any ) {
     const task = await Task.findById(id);
 
     if (!task) {
-      return NextResponse.json({ error: "nashe" }, { status: 400 });
+      return NextResponse.json({ error: `Task with id ${id} not found` }, { status: 400 });
     }
 
-    return NextResponse.json({message:`obteniendo tarea con id: ${id}`, task }, { status: 200 });
+    return NextResponse.json({message:`Geting task with id: ${id}`, task }, { status: 200 });
   
   } catch (error: any) {
     return NextResponse.json(
@@ -45,14 +45,14 @@ export async function PUT(request: NextRequest, { params }: any) {
 
     if (!title || !description) {
       return NextResponse.json(
-        { error: "Completa los campos de title y description" },
+        { error: "Complete title and description" },
         { status: 400 }
       );
     }
 
     if (!id) {
       return NextResponse.json(
-        { error: "No se encontro la tarea" },
+        { error: "Invalid id" },
         { status: 400 }
       );
     }
@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest, { params }: any) {
     
     return NextResponse.json(
       {
-        message: `fue actualizada la tarea con id: ${id}`,
+        message: `The task with id: ${id} was updated successfully`,
         task,
       },
       { status: 200 }
@@ -86,14 +86,14 @@ export async function DELETE(request: NextRequest,  { params }: any ) {
 
     if (!id) {
       return NextResponse.json(
-        { error: "No se encontro la tarea" },
+        { error: "Invalid Id" },
         { status: 400 }
       );
     }
 
     const task = await Task.findByIdAndDelete(id);
 
-    return NextResponse.json({ message: `La tarea con id ${id} fue eliminada correctamente}`, task }, { status: 200 });
+    return NextResponse.json({ message: `Task with id: ${id} was deleted successfully`, task }, { status: 200 });
   
   } catch (error: any) {
     return NextResponse.json(
