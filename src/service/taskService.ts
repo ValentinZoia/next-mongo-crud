@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ITaskDocument } from "@/models/Tasks";
 
-const API_URL = process.env.API_URL || "http://localhost:3000/api/tasks";
+const API_URL = process.env.API_URL || "/api/tasks";
 
 export const taskService = {
 
