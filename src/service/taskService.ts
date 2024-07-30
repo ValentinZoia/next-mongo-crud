@@ -3,6 +3,7 @@ import { ITaskDocument } from "@/models/Tasks";
 
 const API_URL = process.env.API_URL || "/api/tasks";
 
+
 export const taskService = {
 
     getAllTasks: async (): Promise<ITaskDocument[]> =>{
@@ -10,7 +11,7 @@ export const taskService = {
             const response = await axios.get(API_URL);
             return response.data.tasks;
         } catch (error) {
-            throw new Error("An error occurred while fetching tasks")
+            throw new Error(process.env.API_URL)
         }
     },
 
