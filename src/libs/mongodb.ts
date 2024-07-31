@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1/next-tasks";
+const MONGO_URI = "mongodb://127.0.0.1/next-tasks";
 
 console.log(process.env.MONGO_URI)
 
@@ -11,4 +11,5 @@ export const connectDB = async () => {
     } catch (error) {
         console.log(error);
     }
+    
 }

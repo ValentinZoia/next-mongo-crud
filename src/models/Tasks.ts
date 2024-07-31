@@ -10,7 +10,7 @@ export interface ITask {
   updatedAt?: Date;
 }
 
-export interface ITaskDocument extends ITask, Document {
+export interface ITaskDocument extends Document {
   _id?: ObjectId | string | undefined;
   title: string;
   time?: string;
@@ -20,7 +20,7 @@ export interface ITaskDocument extends ITask, Document {
   updatedAt?: Date;
 }
 
-const taskSchema = new Schema<ITaskDocument>(
+const taskSchema: Schema = new Schema(
   {
     title: { type: String, required: true },
     time: { type: String, required: false },
@@ -32,5 +32,5 @@ const taskSchema = new Schema<ITaskDocument>(
   }
 );
 
-const Task = mongoose.models.Tasks || mongoose.model<ITaskDocument>("Tasks", taskSchema);
+const Task = mongoose.models.Task || mongoose.model<ITaskDocument>("Task", taskSchema) ;
 export default Task;

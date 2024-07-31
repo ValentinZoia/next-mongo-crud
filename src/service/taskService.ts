@@ -3,7 +3,7 @@
 import axios from "axios";
 import { ITaskDocument } from "@/models/Tasks";
 
-const API_URL = "https://task-next-vz.netlify.app/api/tasks";
+const API_URL = "/api/tasks";
 
 
 export const taskService = {

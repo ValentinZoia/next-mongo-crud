@@ -1,14 +1,17 @@
 "use client";
 
-import { ITaskDocument } from "@/models/Tasks";
+import Task, { ITaskDocument } from "@/models/Tasks";
 import { taskService } from "@/service/taskService";
 import TaskCard from "@/components/TaskCard/TaskCard";
 import { useEffect, useState } from "react";
 import { sortTasks } from "@/utils/sortTasks";
 import showDate from "@/utils/showDate";
+import { connectDB } from "@/libs/mongodb";
 
-export default function TasksListPage(): JSX.Element {
-  const [tasks, setTasks] = useState<ITaskDocument[]>([]);
+
+export default function TasksListPage() {
+   const [tasks, setTasks] = useState<ITaskDocument[]>([]);
+  
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,6 +29,9 @@ export default function TasksListPage(): JSX.Element {
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  
+
 
   const handleDeleteTask = (deletedTaskId: string) => {
     const filteredTasks = tasks.filter((task) => task._id !== deletedTaskId);
