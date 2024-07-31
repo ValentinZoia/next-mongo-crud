@@ -1,12 +1,12 @@
 "use client";
 
-import Task, { ITaskDocument } from "@/models/Tasks";
+import { ITaskDocument } from "@/models/Tasks";
 import { taskService } from "@/service/taskService";
 import TaskCard from "@/components/TaskCard/TaskCard";
 import { useEffect, useState } from "react";
 import { sortTasks } from "@/utils/sortTasks";
 import showDate from "@/utils/showDate";
-import { connectDB } from "@/libs/mongodb";
+
 
 
 export default function TasksListPage() {
